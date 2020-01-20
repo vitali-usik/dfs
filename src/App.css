@@ -3,7 +3,7 @@
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 30vmin;
   pointer-events: none;
 }
 
@@ -36,5 +36,46 @@
 }
 
 .bold {
+  font-weight: bold;
+}
+
+td {
+  width: 50px;
+}
+
+.Content-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.controls {
+  position: relative;
+  text-align: left;
+  margin-right: 40px;
+}
+
+.form-row {
+  display: block;
+  padding-top: 16px;
+}
+
+.form-row:first-of-type {
+  padding-top: 0;
+}
+
+.form-row > select {
+  width: 100px;
+  height: 20px;
+}
+
+.form-row > label {
+  display: block;
+  font-size: 16px;
+  line-height: 18px;
+}
+
+.form-row > label.label-heading {
+  font-size: 18px;
+  line-height: 20px;
   font-weight: bold;
 }
