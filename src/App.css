@@ -39,6 +39,18 @@
   font-weight: bold;
 }
 
+.color2 {
+  background-color: antiquewhite;
+}
+
+.white {
+  background-color: white;
+}
+
+.green {
+  background-color: #61dafb;
+}
+
 td {
   width: 50px;
 }

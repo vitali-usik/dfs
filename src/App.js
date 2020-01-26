@@ -3,26 +3,28 @@ import React, { useState } from 'react';
 import Matrix from './components/Matrix';
 import Controls from './components/Controls';
 
+import doDFS from './logic/bfs';
+
 import logo from './logo.svg';
 
 import './App.css';
 
 const data = {
   graph1: [
-    [1, 1, 0, 0, 1, 0],
-    [1, 0, 1, 0, 1, 0],
-    [0, 1, 0, 1, 0, 0],
-    [0, 0, 1, 0, 1, 1],
-    [1, 1, 0, 1, 0, 0],
-    [0, 0, 0, 1, 0, 0],
-  ],
-  graph2: [
     [0, 1, 1, 1, 0, 0],
     [1, 0, 0, 1, 1, 0],
     [1, 0, 0, 1, 0, 0],
     [1, 1, 1, 1, 1, 0],
     [0, 1, 0, 1, 0, 0],
     [0, 0, 0, 0, 0, 0],
+  ],
+  graph2: [
+    [1, 1, 0, 0, 1, 0],
+    [1, 0, 1, 0, 1, 0],
+    [0, 1, 0, 1, 0, 0],
+    [0, 0, 1, 0, 1, 1],
+    [1, 1, 0, 1, 0, 0],
+    [0, 0, 0, 1, 0, 0],
   ],
   graph3: [
     [0, 1, 1, 0, 1, 1],
@@ -34,8 +36,18 @@ const data = {
   ]
 };
 
+const cm = [
+  ['white', 'white', 'white', 'white', 'white', 'white'],
+  ['white', 'white', 'white', 'white', 'white', 'white'],
+  ['white', 'white', 'white', 'white', 'white', 'white'],
+  ['white', 'white', 'white', 'white', 'white', 'white'],
+  ['white', 'white', 'white', 'white', 'white', 'white'],
+  ['white', 'white', 'white', 'white', 'white', 'white'],
+];
+
 function App() {
   const [adjMatrix, setAdjMatrix] = useState(data.graph1);
+  const [colorMatrix, setColorMatrix] = useState(cm);
   const [selectedMatrixInd, setSelectedMatrixInd] = useState(0);
   const [size, setSize] = useState(6);
 
@@ -60,6 +72,22 @@ function App() {
     setSize(6);
   };
 
+  const update = (key) => {
+    colorMatrix[key[0]][key[2]] = 'green';
+    const newColorMatrix = [...colorMatrix];
+    setColorMatrix(newColorMatrix);
+  };
+
+  const onBFSClick = () => {
+    const result = doDFS(adjMatrix, 0, {});
+
+    Object.keys(result).forEach((key) => {
+      console.log('key', key);
+      update(key);
+      // debugger
+    })
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -71,7 +99,10 @@ function App() {
             onSizeChangeClick={onSizeChangeClick}
             onMatrixChange={onMatrixChange}
           />
-          <Matrix adjMatrix={adjMatrix} />
+          <Matrix adjMatrix={adjMatrix} colors={colorMatrix} />
+        </div>
+        <div>
+          <button onClick={onBFSClick}>Поиск в глубину</button>
         </div>
       </header>
     </div>
