@@ -2,7 +2,7 @@ import React from 'react';
 
 import '../App.css';
 
-const Matrix = ({ adjMatrix, colors }) => {
+const Matrix = ({ adjMatrix }) => {
   return (
     <table>
       <thead>
@@ -16,7 +16,7 @@ const Matrix = ({ adjMatrix, colors }) => {
           <tr key={`${row}${rowInd}`}>
             <td className="bold">{rowInd}</td>
             {row.map((item, itemInd) => (
-              <td className={colors[rowInd][itemInd]} key={`${item}${itemInd}`}>{item}</td>
+              <td key={`${item}${itemInd}`} id={`${rowInd}-${itemInd}`}>{item}</td>
             ))}
           </tr>
         ))}

@@ -31,23 +31,13 @@ const data = {
     [1, 0, 1, 0, 0, 0],
     [1, 1, 0, 1, 1, 0],
     [0, 0, 1, 0, 1, 0],
-    [1, 0, 1, 1, 0, 0],
+    [1, 0, 1, 1, 0, 1],
     [1, 0, 0, 0, 1, 0],
   ]
 };
 
-const cm = [
-  ['white', 'white', 'white', 'white', 'white', 'white'],
-  ['white', 'white', 'white', 'white', 'white', 'white'],
-  ['white', 'white', 'white', 'white', 'white', 'white'],
-  ['white', 'white', 'white', 'white', 'white', 'white'],
-  ['white', 'white', 'white', 'white', 'white', 'white'],
-  ['white', 'white', 'white', 'white', 'white', 'white'],
-];
-
 function App() {
   const [adjMatrix, setAdjMatrix] = useState(data.graph1);
-  const [colorMatrix, setColorMatrix] = useState(cm);
   const [selectedMatrixInd, setSelectedMatrixInd] = useState(0);
   const [size, setSize] = useState(6);
 
@@ -72,20 +62,18 @@ function App() {
     setSize(6);
   };
 
-  const update = (key) => {
-    colorMatrix[key[0]][key[2]] = 'green';
-    const newColorMatrix = [...colorMatrix];
-    setColorMatrix(newColorMatrix);
-  };
-
   const onBFSClick = () => {
     const result = doDFS(adjMatrix, 0, {});
+    const coords = Object.keys(result);
+    let counter = 0;
 
-    Object.keys(result).forEach((key) => {
-      console.log('key', key);
-      update(key);
-      // debugger
-    })
+    const intervalId = setInterval(() => {
+      document.getElementById(coords[counter]).classList.add('green');
+      counter++;
+      if (counter === coords.length) {
+        clearInterval(intervalId);
+      }
+    }, 500);
   };
 
   return (
@@ -99,7 +87,7 @@ function App() {
             onSizeChangeClick={onSizeChangeClick}
             onMatrixChange={onMatrixChange}
           />
-          <Matrix adjMatrix={adjMatrix} colors={colorMatrix} />
+          <Matrix adjMatrix={adjMatrix} />
         </div>
         <div>
           <button onClick={onBFSClick}>Поиск в глубину</button>
